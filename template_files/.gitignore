@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+*.ruff_cache/
+
+*my_config.yaml
 *scrap/
 .DS_Store
 

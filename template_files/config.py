@@ -20,7 +20,7 @@ class Config(metaclass=SingletonMeta):
     def read_config(cls) -> None:
         cls._config_data = {}
         if cls._filepath is None:
-            return
+            raise ValueError("No config file specified")
         with open(cls._filepath, "r") as file:
             try:
                 cls._config_data = yaml.safe_load(file)
@@ -29,4 +29,3 @@ class Config(metaclass=SingletonMeta):
         if cls._config_data:
             for k, v in cls._config_data.items():
                 setattr(cls, k, property(lambda cls, val=v: val))
-
