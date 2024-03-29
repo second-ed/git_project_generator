@@ -1,0 +1,30 @@
+[project]
+name = "REPLACE_PROJECT_NAME"
+authors = [
+    {name="REPLACE_PROJECT_AUTHOR"},
+]
+description = ""
+readme = "README.md"
+requires-python = ">=3.8"
+version = "0.0.1"
+dependencies = [
+    "pyyaml",
+
+]
+
+[project.optional-dependencies]
+lint = [
+    "black<24",
+    "ruff",
+]
+dev = [
+    "REPLACE_PROJECT_NAME[lint]",
+]
+
+[tool.black]
+line-length = 79
+
+[tool.ruff]
+lint.extend-select = ["I", "W"]
+lint.ignore = ["E741"]
+line-length = 79

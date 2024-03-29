@@ -1,0 +1,30 @@
+[project]
+name = "git_project_generator"
+authors = [
+    {name="ed cuss"},
+]
+description = ""
+readme = "README.md"
+requires-python = ">=3.8"
+version = "0.0.1"
+dependencies = [
+    "pyyaml",
+
+]
+
+[project.optional-dependencies]
+lint = [
+    "black<24",
+    "ruff",
+]
+dev = [
+    "git_project_generator[lint]",
+]
+
+[tool.black]
+line-length = 79
+
+[tool.ruff]
+lint.extend-select = ["I", "W"]
+lint.ignore = ["E741"]
+line-length = 79
