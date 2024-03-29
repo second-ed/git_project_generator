@@ -9,16 +9,19 @@ requires-python = ">=3.8"
 version = "0.0.1"
 dependencies = [
     "pyyaml",
-
 ]
 
 [project.optional-dependencies]
+test = [
+    "hypothesis",
+    "pytest",
+]
 lint = [
     "black<24",
     "ruff",
 ]
 dev = [
-    "git_project_generator[lint]",
+    "git_project_generator[test,lint]",
 ]
 
 [tool.black]
