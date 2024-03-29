@@ -40,7 +40,7 @@ class GitProjectGenerator:
             print(f"{e}: exception making {folder_path}")
             return False
 
-    def create_git_dir(self) -> None:
+    def create_git_dir(self) -> bool:
         project_root: str = self.root_dir + self.project_name
         folders: list[str] = [
             ".github/workflows",
@@ -75,8 +75,14 @@ class GitProjectGenerator:
             f"{project_root}/tests/__init__.py": "",
         }
 
-        for folder in folders:
-            self.create_folder(f"{project_root}/{folder}")
+        try:
+            for folder in folders:
+                self.create_folder(f"{project_root}/{folder}")
 
-        for k, v in essential_files.items():
-            self.create_file(k, v)
+            for k, v in essential_files.items():
+                self.create_file(k, v)
+
+            return True
+        except Exception as e:
+            print(f"{e}: failed to create git directory")
+            return False
