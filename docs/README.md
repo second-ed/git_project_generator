@@ -11,6 +11,8 @@ root_project_directory
     |- README.md
 |- envs/
     |- .env
+|- scrap/
+    |- scratch.ipynb
 |- src/
     |- __init__.py
     |- config.py
