@@ -14,8 +14,10 @@ root_project_directory
 |- scrap/
     |- scratch.ipynb
 |- src/
+    |- project_name/
+        |- __init__.py
+        |- config.py
     |- __init__.py
-    |- config.py
 |- tests/
     |- __init__.py
 |- .gitignore
