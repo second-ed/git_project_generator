@@ -68,10 +68,11 @@ class GitProjectGenerator:
             )
             .replace("REPLACE_PROJECT_NAME", self.project_name)
             .replace("REPLACE_PROJECT_AUTHOR", self.project_author),
-            f"{project_root}/src/config.py": self.get_template_file_str(
+            f"{project_root}/src/{self.project_name}/config.py": self.get_template_file_str(
                 "config.py"
             ),
             f"{project_root}/src/__init__.py": "",
+            f"{project_root}/src/{self.project_name}/__init__.py": "",
             f"{project_root}/tests/__init__.py": "",
         }
 
