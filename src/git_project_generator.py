@@ -74,6 +74,7 @@ class GitProjectGenerator:
             f"{project_root}/src/__init__.py": "",
             f"{project_root}/src/{self.project_name}/__init__.py": "",
             f"{project_root}/tests/__init__.py": "",
+            f"{project_root}/.pre-commit-config.yaml": self.get_template_file_str(".pre-commit-config.yaml")
         }
 
         try:
