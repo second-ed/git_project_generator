@@ -5,7 +5,7 @@ repos:
       name: black
       entry: black
       language: system
-      types: [python, jupyter]
+      types_or: [python, jupyter]
     - id: ruff
       name: ruff
       entry: ruff
