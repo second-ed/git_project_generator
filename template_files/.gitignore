@@ -5,6 +5,7 @@ __pycache__/
 
 *.ruff_cache/
 
+*deprecated*
 *my_config.yaml
 *scrap/
 .DS_Store
