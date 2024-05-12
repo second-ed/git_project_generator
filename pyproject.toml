@@ -13,8 +13,9 @@ dependencies = [
 
 [project.optional-dependencies]
 test = [
-    "hypothesis",
     "pytest",
+    "pytest-cov",
+    "hypothesis",
 ]
 lint = [
     "black<24",
