@@ -18,6 +18,7 @@ test = [
     "hypothesis",    
 ]
 lint = [
+    "pre-commit",
     "black<24",
     "ruff",
 ]
