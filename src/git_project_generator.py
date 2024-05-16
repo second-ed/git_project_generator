@@ -56,10 +56,10 @@ class GitProjectGenerator:
             f"{project_root}/.github/workflows/run_tests.yaml": self.get_template_file_str(
                 "run_tests.yaml"
             ),
-            f"{project_root}/configs/example_config.yaml": "# add config details here",
+            f"{project_root}/configs/example_config.yaml": "# add config details here\nlogs_folder: ./logs/",
             f"{project_root}/docs/README.md": "",
             f"{project_root}/envs/.env": "# add secrets here",
-            f"{project_root}/logs/": "",
+            f"{project_root}/logs/general.log": "",
             f"{project_root}/scrap/scratch.ipynb": "",
             f"{project_root}/.gitignore": self.get_template_file_str(
                 ".gitignore"
@@ -72,14 +72,19 @@ class GitProjectGenerator:
             f"{project_root}/src/{self.project_name}/config.py": self.get_template_file_str(
                 "config.py"
             ),
-            f"{project_root}/src/{self.project_name}/logger.py": self.get_template_file_str(
-                "logger.py"
-            ),
             f"{project_root}/src/__init__.py": "",
             f"{project_root}/src/{self.project_name}/__init__.py": "",
+            f"{project_root}/src/{self.project_name}/main.py": self.get_template_file_str(
+                "main.py"
+            ).replace(
+                "REPLACE_PROJECT_NAME", self.project_name
+            ),
             f"{project_root}/tests/__init__.py": "",
             f"{project_root}/.pre-commit-config.yaml": self.get_template_file_str(
                 ".pre-commit-config.yaml"
+            ),
+            f"{project_root}/logging.ini": self.get_template_file_str(
+                "logging.ini"
             ),
         }
 
