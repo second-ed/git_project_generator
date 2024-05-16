@@ -59,6 +59,7 @@ class GitProjectGenerator:
             f"{project_root}/configs/example_config.yaml": "# add config details here",
             f"{project_root}/docs/README.md": "",
             f"{project_root}/envs/.env": "# add secrets here",
+            f"{project_root}/logs/": "",
             f"{project_root}/scrap/scratch.ipynb": "",
             f"{project_root}/.gitignore": self.get_template_file_str(
                 ".gitignore"
@@ -71,10 +72,15 @@ class GitProjectGenerator:
             f"{project_root}/src/{self.project_name}/config.py": self.get_template_file_str(
                 "config.py"
             ),
+            f"{project_root}/src/{self.project_name}/logger.py": self.get_template_file_str(
+                "logger.py"
+            ),
             f"{project_root}/src/__init__.py": "",
             f"{project_root}/src/{self.project_name}/__init__.py": "",
             f"{project_root}/tests/__init__.py": "",
-            f"{project_root}/.pre-commit-config.yaml": self.get_template_file_str(".pre-commit-config.yaml")
+            f"{project_root}/.pre-commit-config.yaml": self.get_template_file_str(
+                ".pre-commit-config.yaml"
+            ),
         }
 
         try:
