@@ -72,7 +72,7 @@ class GitProjectGenerator:
             f"{project_root}/src/{self.project_name}/config.py": self.get_template_file_str(
                 "config.py"
             ),
-            f"{project_root}/src/__init__.py": "",
+            # f"{project_root}/src/__init__.py": "",
             f"{project_root}/src/{self.project_name}/__init__.py": "",
             f"{project_root}/src/{self.project_name}/main.py": self.get_template_file_str(
                 "main.py"
