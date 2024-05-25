@@ -55,7 +55,7 @@ class GitProjectGenerator:
         essential_files: dict[str, str] = {
             f"{project_root}/.github/workflows/run_tests.yaml": self.get_template_file_str(
                 "run_tests.yaml"
-            ),
+            ).replace("REPLACE_PROJECT_NAME", self.project_name),
             f"{project_root}/configs/example_config.yaml": "# add config details here\nlogs_folder: ./logs/",
             f"{project_root}/docs/README.md": "",
             f"{project_root}/envs/.env": "# add secrets here",
