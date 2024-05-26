@@ -1,4 +1,25 @@
+import logging
+import logging.config
+from pathlib import Path
+
 import yaml
+
+
+def setup_logger(file, idx) -> bool:
+    logging.config.fileConfig(
+        get_dir_path(file, idx, "logging.ini"),
+        defaults={"root": get_dir_path(file, idx, "logs")},
+    )
+    return True
+
+
+def get_logger(name: str) -> logging.Logger:
+    return logging.getLogger(name)
+
+
+def get_dir_path(src: str, idx: int, dst: str) -> str:
+    curr_dir = Path(src).parents[idx]
+    return str(curr_dir.joinpath(dst)).replace("\\", "/")
 
 
 class SingletonMeta(type):

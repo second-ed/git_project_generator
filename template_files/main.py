@@ -1,9 +1,11 @@
-import logging
-import logging.config
+from src.REPLACE_PROJECT_NAME.config import (
+    Config,
+    get_dir_path,
+    get_logger,
+    setup_logger,
+)
 
-from src.{REPLACE_PROJECT_NAME}.config import Config
+Config().set_filepath(get_dir_path(__file__, 2, "configs/example_config.yaml"))
 
-Config().set_filepath("./configs/example_config.yaml")
-logging.config.fileConfig('./logging.ini', defaults={"root": Config().logs_folder})
-logger = logging.getLogger(__name__)
-
+setup_logger(__file__, 2)
+logger = get_logger(__name__)
