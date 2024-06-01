@@ -76,6 +76,9 @@ class GitProjectGenerator:
             ),
             # f"{project_root}/src/__init__.py": "",
             f"{project_root}/src/{self.project_name}/__init__.py": "",
+            f"{project_root}/src/{self.project_name}/_logger.py": self.get_template_file_str(
+                "_logger.py"
+            ),
             f"{project_root}/src/{self.project_name}/main.py": self.get_template_file_str(
                 "main.py"
             ).replace(
