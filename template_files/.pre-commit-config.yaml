@@ -14,7 +14,7 @@ repos:
       args: [ --fix ]
     - id: pytest-check
       name: pytest-check
-      entry: pytest -v --cov=REPLACE_PROJECT_NAME --cov-report term-missing --cov-fail-under=80
+      entry: pytest -v --cov=src --cov-report term-missing --cov-fail-under=80
       language: system
       pass_filenames: false
       always_run: true

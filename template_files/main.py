@@ -1,5 +1,5 @@
-from src.REPLACE_PROJECT_NAME.config import (
-    Config,
+from src.REPLACE_PROJECT_NAME.config import Config
+from src.REPLACE_PROJECT_NAME._logger import (
     get_dir_path,
     get_logger,
     setup_logger,

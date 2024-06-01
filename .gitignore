@@ -8,6 +8,7 @@ __pycache__/
 *my_config.yaml
 *scrap/
 .DS_Store
+*logs/
 
 # C extensions
 *.so
