@@ -4,6 +4,10 @@ from pathlib import Path
 import attr
 from attr.validators import instance_of, min_len
 
+from ._logger import get_logger, setup_logger
+
+setup_logger(__file__, 2)
+logger = get_logger(__name__)
 
 @attr.define
 class GitProjectGenerator:
@@ -13,6 +17,8 @@ class GitProjectGenerator:
     project_author: str = attr.ib(validator=[instance_of(str), min_len(2)])
 
     def get_template_file_str(self, file_name: str) -> str:
+        for k, v in locals().items():
+            logger.debug(f"{k} = {v}")
         try:
             with open(f"{self.template_dir}{file_name}", "r") as f:
                 file_text = f.read()
@@ -22,6 +28,8 @@ class GitProjectGenerator:
             return ""
 
     def create_file(self, file_path: str, file_text: str) -> bool:
+        for k, v in locals().items():
+            logger.debug(f"{k} = {v}")
         try:
             output_file = Path(file_path)
             output_file.parent.mkdir(exist_ok=True, parents=True)
@@ -33,6 +41,8 @@ class GitProjectGenerator:
             return False
 
     def create_folder(self, folder_path: str) -> bool:
+        for k, v in locals().items():
+            logger.debug(f"{k} = {v}")
         try:
             os.makedirs(folder_path, exist_ok=True)
             return True
@@ -41,6 +51,8 @@ class GitProjectGenerator:
             return False
 
     def create_git_dir(self) -> bool:
+        for k, v in locals().items():
+            logger.debug(f"{k} = {v}")
         project_root: str = self.root_dir + self.project_name
         folders: list[str] = [
             ".github/workflows",
