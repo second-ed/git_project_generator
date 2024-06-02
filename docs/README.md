@@ -11,16 +11,20 @@ root_project_directory
     |- README.md
 |- envs/
     |- .env
+|- logs/
+    |- general.log
 |- scrap/
     |- scratch.ipynb
 |- src/
     |- project_name/
         |- __init__.py
+        |- _logger.py
         |- config.py
-    |- __init__.py
+        |- main.py
 |- tests/
     |- __init__.py
 |- .gitignore
+|- logging.ini
 |- pyproject.toml
 ```
 
