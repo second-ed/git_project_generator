@@ -33,3 +33,14 @@ line-length = 79
 lint.extend-select = ["I", "W"]
 lint.ignore = ["E741"]
 line-length = 79
+
+[tool.coverage.run]
+branch = true
+source=["src"]
+omit=[
+    "*_logger.py",
+    "*config.py",
+]
+
+[tool.coverage.report]
+show_missing=true
