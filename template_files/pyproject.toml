@@ -19,20 +19,11 @@ test = [
 ]
 lint = [
     "pre-commit",
-    "black<24",
     "ruff",
 ]
 dev = [
     "REPLACE_PROJECT_NAME[test,lint]",
 ]
-
-[tool.black]
-line-length = 88
-
-[tool.ruff]
-lint.extend-select = ["I", "W"]
-lint.ignore = ["E741"]
-line-length = 88
 
 [tool.coverage.run]
 branch = true
