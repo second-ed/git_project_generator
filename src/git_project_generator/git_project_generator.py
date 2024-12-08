@@ -105,6 +105,9 @@ class GitProjectGenerator:
             f"{project_root}/logging.ini": self.get_template_file_str(
                 "logging.ini"
             ),
+            f"{project_root}/ruff.toml": self.get_template_file_str(
+                "ruff.toml"
+            ),
         }
 
         try:
