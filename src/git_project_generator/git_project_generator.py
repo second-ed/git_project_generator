@@ -1,123 +1,65 @@
 import os
 from pathlib import Path
 
-import attr
-from attr.validators import instance_of, min_len
 
-from ._logger import get_logger, setup_logger
+def create_files(root_dir: str, project_name: str, template_dir: str):
+    package_name = project_name.replace("_", "-")
+    package_dir = f"{root_dir}/{package_name}"
+    os.makedirs(package_dir, exist_ok=True)
 
-setup_logger(__file__, 2)
-logger = get_logger(__name__)
+    config = [
+        (f"{package_dir}/src/{project_name}/__init__.py", ""),
+        (f"{package_dir}/src/{project_name}/__main__.py", ""),
+        (f"{package_dir}/tests/__init__.py", ""),
+        (
+            f"{package_dir}/tests/test_main.py",
+            "\n".join(["import pytest", "", "def test_main():", "    pass"]),
+        ),
+        (f"{package_dir}/configs/config.yaml", ""),
+        (f"{package_dir}/docs/dev_readme.md", ""),
+        (f"{package_dir}/logs/general.log", ""),
+        (f"{package_dir}/scrap/scratch.ipynb", ""),
+        (
+            f"{package_dir}/.pre-commit-config.yaml",
+            get_template_file_str(f"{template_dir}/.pre-commit-config.yaml"),
+        ),
+        (
+            f"{package_dir}/ruff.toml",
+            get_template_file_str(f"{template_dir}/ruff.toml"),
+        ),
+        (
+            f"{package_dir}/.gitignore",
+            get_template_file_str(f"{template_dir}/.gitignore"),
+        ),
+        (
+            f"{package_dir}/.github/workflows/ci_tests.yaml",
+            get_template_file_str(f"{template_dir}/ci_tests.yaml"),
+        ),
+    ]
 
-@attr.define
-class GitProjectGenerator:
-    root_dir: str = attr.ib(validator=[instance_of(str), min_len(2)])
-    template_dir: str = attr.ib(validator=[instance_of(str), min_len(2)])
-    project_name: str = attr.ib(validator=[instance_of(str), min_len(2)])
-    project_author: str = attr.ib(validator=[instance_of(str), min_len(2)])
+    for file, contents in config:
+        create_file(file, contents)
 
-    def get_template_file_str(self, file_name: str) -> str:
-        for k, v in locals().items():
-            logger.debug(f"{k} = {v}")
-        try:
-            with open(f"{self.template_dir}{file_name}", "r") as f:
-                file_text = f.read()
-            return file_text
-        except Exception as e:
-            print(f"{e}: error reading {file_name}")
-            return ""
+    return f'cd "{package_dir}"'
 
-    def create_file(self, file_path: str, file_text: str) -> bool:
-        for k, v in locals().items():
-            logger.debug(f"{k} = {v}")
-        try:
-            output_file = Path(file_path)
-            output_file.parent.mkdir(exist_ok=True, parents=True)
-            with open(output_file, "w") as file:
-                file.write(file_text)
-            return True
-        except Exception as e:
-            print(f"{e}: exception making {file_path}")
-            return False
 
-    def create_folder(self, folder_path: str) -> bool:
-        for k, v in locals().items():
-            logger.debug(f"{k} = {v}")
-        try:
-            os.makedirs(folder_path, exist_ok=True)
-            return True
-        except Exception as e:
-            print(f"{e}: exception making {folder_path}")
-            return False
+def get_template_file_str(path: str) -> str:
+    try:
+        with open(path, "r") as f:
+            file_text = f.read()
+        return file_text
+    except Exception as e:
+        print(f"{e}: error reading {path}")
+        return ""
 
-    def create_git_dir(self) -> bool:
-        for k, v in locals().items():
-            logger.debug(f"{k} = {v}")
-        project_root: str = self.root_dir + self.project_name
-        folders: list[str] = [
-            ".github/workflows",
-            "src",
-            "docs",
-            "configs",
-            "envs",
-            "tests",
-            "scrap",
-        ]
 
-        essential_files: dict[str, str] = {
-            f"{project_root}/.github/workflows/run_tests.yaml": self.get_template_file_str(
-                "run_tests.yaml"
-            ).replace(
-                "REPLACE_PROJECT_NAME", self.project_name
-            ),
-            f"{project_root}/configs/example_config.yaml": "# add config details here\nlogs_folder: ./logs/",
-            f"{project_root}/docs/README.md": "",
-            f"{project_root}/envs/.env": "# add secrets here",
-            f"{project_root}/logs/general.log": "",
-            f"{project_root}/scrap/scratch.ipynb": "",
-            f"{project_root}/.gitignore": self.get_template_file_str(
-                ".gitignore"
-            ),
-            f"{project_root}/pyproject.toml": self.get_template_file_str(
-                "pyproject.toml"
-            )
-            .replace("REPLACE_PROJECT_NAME", self.project_name)
-            .replace("REPLACE_PROJECT_AUTHOR", self.project_author),
-            f"{project_root}/src/{self.project_name}/config.py": self.get_template_file_str(
-                "config.py"
-            ),
-            # f"{project_root}/src/__init__.py": "",
-            f"{project_root}/src/{self.project_name}/__init__.py": "",
-            f"{project_root}/src/{self.project_name}/_logger.py": self.get_template_file_str(
-                "_logger.py"
-            ),
-            f"{project_root}/src/{self.project_name}/main.py": self.get_template_file_str(
-                "main.py"
-            ).replace(
-                "REPLACE_PROJECT_NAME", self.project_name
-            ),
-            f"{project_root}/tests/__init__.py": "",
-            f"{project_root}/.pre-commit-config.yaml": self.get_template_file_str(
-                ".pre-commit-config.yaml"
-            ).replace(
-                "REPLACE_PROJECT_NAME", self.project_name
-            ),
-            f"{project_root}/logging.ini": self.get_template_file_str(
-                "logging.ini"
-            ),
-            f"{project_root}/ruff.toml": self.get_template_file_str(
-                "ruff.toml"
-            ),
-        }
-
-        try:
-            for folder in folders:
-                self.create_folder(f"{project_root}/{folder}")
-
-            for k, v in essential_files.items():
-                self.create_file(k, v)
-
-            return True
-        except Exception as e:
-            print(f"{e}: failed to create git directory")
-            return False
+def create_file(file_path: str, file_text: str) -> bool:
+    try:
+        output_file = Path(file_path)
+        output_file.parent.mkdir(exist_ok=True, parents=True)
+        with open(output_file, "w") as file:
+            file.write(file_text)
+        return True
+    except Exception as e:
+        print(f"{e}: exception making {file_path}")
+        return False

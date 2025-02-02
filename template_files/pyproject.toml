@@ -5,25 +5,10 @@ authors = [
 ]
 description = ""
 readme = "README.md"
-requires-python = ">=3.8"
-version = "0.0.1"
-dependencies = [
-    "pyyaml",
-]
+requires-python = ">=3.9"
+version = "0.1.0"
+dependencies = []
 
-[project.optional-dependencies]
-test = [
-    "pytest",
-    "pytest-cov",
-    "hypothesis",    
-]
-lint = [
-    "pre-commit",
-    "ruff",
-]
-dev = [
-    "REPLACE_PROJECT_NAME[test,lint]",
-]
 
 [tool.coverage.run]
 branch = true

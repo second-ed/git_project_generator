@@ -17,4 +17,3 @@ def setup_logger(file, idx) -> bool:
 def get_dir_path(src: str, idx: int, dst: str) -> str:
     curr_dir = Path(src).parents[idx]
     return str(curr_dir.joinpath(dst)).replace("\\", "/")
-
