@@ -7,13 +7,13 @@ repos:
     rev: v0.9.4
     hooks:
     - id: ruff
-      args: [ --fix]
+      args: [ --fix ]
     - id: ruff-format
   - repo: local
     hooks:
       - id: pytest
         name: pytest
-        entry: ./.venv/bin/pytest -v --cov=src --cov-report term-missing
+        entry: uv run pytest -v --cov=src --cov-report term-missing
         language: python
         pass_filenames: false
         always_run: true
