@@ -12,6 +12,16 @@ class TemplateFile:
         self.dst_path.parent.mkdir(exist_ok=True, parents=True)
         self.dst_path.write_text(self.contents)
 
+        if (
+            self.dst_path.stem == "__init__"
+            and "src" in self.dst_path.parts
+            and self.contents == ""
+        ):
+            parts = list(self.dst_path.parts)
+            idx = parts.index("src")
+            parts[idx] = "tests"
+            TemplateFile(Path(*parts)).create()
+
 
 def create_files(root_dir: str, project_name: str, template_dir: str):
     package_name = project_name.replace("_", "-")
@@ -19,18 +29,14 @@ def create_files(root_dir: str, project_name: str, template_dir: str):
 
     config = [
         TemplateFile(f"{package_dir}/src/{project_name}/__init__.py"),
-        TemplateFile(f"{package_dir}/tests/{project_name}/__init__.py"),
         TemplateFile(f"{package_dir}/src/{project_name}/__main__.py"),
         TemplateFile(
             f"{package_dir}/tests/{project_name}/test_main.py",
             "\n".join(["import pytest", "", "def test_main():", "    pass"]),
         ),
         TemplateFile(f"{package_dir}/src/{project_name}/adapters/__init__.py"),
-        TemplateFile(f"{package_dir}/tests/{project_name}/adapters/__init__.py"),
         TemplateFile(f"{package_dir}/src/{project_name}/core/__init__.py"),
-        TemplateFile(f"{package_dir}/tests/{project_name}/core/__init__.py"),
         TemplateFile(f"{package_dir}/src/{project_name}/services/__init__.py"),
-        TemplateFile(f"{package_dir}/tests/{project_name}/services/__init__.py"),
         TemplateFile(f"{package_dir}/scrap/scratch.ipynb"),
         TemplateFile(f"{package_dir}/README.md"),
         TemplateFile(f"{package_dir}/envs/.env", "LOGGING_ENABLED = true"),
