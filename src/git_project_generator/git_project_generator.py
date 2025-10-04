@@ -38,7 +38,7 @@ def create_files(root_dir: str, project_name: str, template_dir: str):
         TemplateFile(f"{package_dir}/src/{project_name}/core/__init__.py"),
         TemplateFile(f"{package_dir}/src/{project_name}/services/__init__.py"),
         TemplateFile(f"{package_dir}/scrap/scratch.ipynb"),
-        TemplateFile(f"{package_dir}/README.md"),
+        TemplateFile(f"{package_dir}/README.md", f"# {package_name}\n"),
         TemplateFile(f"{package_dir}/envs/.env", "LOGGING_ENABLED = true"),
         TemplateFile(
             f"{package_dir}/src/{project_name}/core/logger.py",
