@@ -20,6 +20,7 @@ class TemplateFile:
             parts = list(self.dst_path.parts)
             idx = parts.index("src")
             parts[idx] = "tests"
+            parts.pop(idx + 1)
             TemplateFile(Path(*parts)).create()
 
 
@@ -31,7 +32,7 @@ def create_files(root_dir: str, project_name: str, template_dir: str):
         TemplateFile(f"{package_dir}/src/{project_name}/__init__.py"),
         TemplateFile(f"{package_dir}/src/{project_name}/__main__.py"),
         TemplateFile(
-            f"{package_dir}/tests/{project_name}/test_main.py",
+            f"{package_dir}/tests/test_main.py",
             "\n".join(["import pytest", "", "def test_main():", "    pass"]),
         ),
         TemplateFile(f"{package_dir}/src/{project_name}/adapters/__init__.py"),
